@@ -1,0 +1,259 @@
+# -*- coding: utf-8 -*-
+"""
+Projet 00
+Faivre-Pierret Noémie
+Orain Keryann
+"""
+
+from random import choice
+
+def choisir_mot(liste):
+    """
+    
+    Cette fonction permet de choisir aléatoirement un mot dans la liste "liste"
+
+    Parameters
+    ----------
+    liste : list
+        Liste de mots
+
+    Returns
+    -------
+    mot : string
+        un mot de la liste
+
+    """
+    #on choisit au hasard un mot de la liste
+    mot = choice(liste)
+    #on retourne le mot
+    return mot
+
+def creer_liste():
+    """
+
+    Cette fonction permet de créer une liste à partir du fichier texte 'dico.txt'
+
+    Returns
+    -------
+    dico : list
+        tableau des mots contenus dans le fichier txt dico
+
+    """
+    
+    #On ouvre le fichier txt dans une nouvelle variable
+    f = open('dico.txt', 'r')
+    #On le transforme en tableau
+    dico = f.readlines()
+    #On le parcourt pour supprimer les charactères '\n'
+    for i in range(len(dico)):
+        dico[i] = dico[i].replace("\n", "")
+    
+    return dico
+
+def ecrire_mot(mot, lettres):
+    """
+    
+    Cette fonction permet d'écrire le mot avec des _ à la place des lettres encore non trouvées et d'afficher correctement les lettres trouvées par le joueur
+
+    Returns
+    -------
+    resultat : string
+        Chaîne de caractères pour afficher le mot du pendu
+    
+    """
+    # On crée un tableau contenant autant de _ que de lettres dans mot
+    # avec un espace derrière pour bien discerner les lettres
+    resultat = ["_ "]*len(mot)
+    # On parcourt une boucle dans laquelle on vérifie où les lettres
+    # trouvées par le joueur se situent dans le mot
+    for i in range(len(mot)):
+        if mot[i] in lettres:
+            # On remplace les _ par la lettre du mot et un espace pour que les
+            # lettres ne soient pas collées entre elles
+            resultat[i] = mot[i] + " "
+    # On transforme le tableau en string
+    resultat = "".join(resultat)
+        
+    
+    return resultat
+
+def est_presente(lettre,mot):
+    """
+    Cette fonction permet de savoir si une lettre est présente dans un mot
+
+    Parameters
+    ----------
+    lettre : string
+        La lettre que l'utilisateur veut tester
+    mot : string
+        le mot choisit aléatoirement
+
+    Returns
+    -------
+    bool
+
+    """
+    #on associe à la variable liste_mot, les caractères du mot
+    liste_mot=list(mot.strip())
+    #on teste si la lettre correspond à un caractère du mot
+    if lettre in liste_mot: 
+        #on affiche que la lettre est trouvée
+        print ("\n Cette lettre est correcte \n")
+        #on associe le test au booléen True
+        return True
+    #on teste si la lettre saisie par l'utilisateur est 0
+    elif lettre == "0":
+        #on associe le résulatat à True
+        return True
+    #sinon
+    else:
+        #on affiche que la lettre n'est pas trouvée
+        print ("\n Cette lettre est incorrecte \n")
+        #on associe le résultat à False
+        return False
+
+def pendu():
+    """
+    
+    Cette fonction est la fontion principale, il suffit de l'appeler pour lancer
+    le jeu.
+    
+    """
+    
+    # On définit le mot du pendu
+    mot = choisir_mot(creer_liste())
+    
+    print("\n JEU DU PENDU \n Pour voir les lettres déjà testées, appuyez sur '0'")
+    
+    # l'alphabet dans un tableau avec le 0 en plus pour voir les lettres
+    # déjà utilisées
+    Alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
+                "Q","R","S","T","U","V","W","X","Y","Z","0"]
+    
+    lettres = []
+    essai = []
+    erreur = 0
+    
+    # Boucle tant que le joueur n'as pas 6 erreurs et qu'il reste des _ dans
+    # le mot à deviner
+    while erreur < 6 and "_" in ecrire_mot(mot,lettres):
+        # Affiche le mot avec _
+        print(ecrire_mot(mot,lettres))
+        # Demdande une lettre
+        l = input(str("\n Proposez une lettre : "))
+        # Met la lettre en majuscule
+        l = l.upper()
+        # Pour afficher les lettres déjà utilisées
+        if l == "0":
+            print(f"\n {essai} \n")
+            continue
+        # si l'utilisateur n'a pas rentré une lettre
+        if l not in Alphabet:
+            print("\n Veuillez rentrer une lettre !")
+        # si l'utilisateur a déjà rentré cette lettre
+        elif l in essai:
+            print("\n Vous avez déjà essayé cette lettre !")
+        
+        else:
+            # sinon si la lettre est présente dans le mot du pendu
+            if est_presente(l,mot):
+                # on l'ajoute dans le tableau des lettres du mot essayées
+                lettres.append(l)
+            else:
+                # si la lettre ne figure pas dans le mot du pendu, on ajoute une
+                # erreur et on dessine le pendu
+                erreur += 1
+                print(dessinPendu(erreur))
+            # on ajoute à chaque essai la lettre dans la liste des lettres essayées
+            essai.append(l)
+    # si le joueur a ateint les 6 erreurs le jeu se termine
+    if erreur == 6:
+        print(f"\n Perdu ! Le mot était {mot} \n")
+    # sinon c'est qu'il a gagné puisque ces conditions sont en dehors de la boucle
+    else:
+        print(f"Bien joué ! Vous avez trouvé le mot {mot}")
+    
+    # on demande à l'utilisateur s'il veut rejouer
+    reponse = 0
+    reponse = int(input("Voulez vous rejouer ?\nOui : 1\nNon : 2\n"))
+    
+    # si sa réponse n'est pas 1 ou 2 on redemande
+    while reponse != 1 and reponse != 2:
+        print("Veuillez renseigner un numéro \n")
+        reponse = int(input("Voulez vous rejouer ?\nOui : 1\nNon : 2\n"))
+    
+    if reponse == 1:
+        pendu()
+    else:
+        print("Au revoir")
+    
+    
+
+def dessinPendu(nb):
+    tab=[
+    """
+       +-------+
+       |
+       |
+       |
+       |
+       |
+    ==============
+    """,
+    """
+       +-------+
+       |       |
+       |       O
+       |
+       |
+       |
+    ==============
+    """
+        ,
+    """
+       +-------+
+       |       |
+       |       O
+       |       |
+       |
+       |
+    ==============
+    """,
+    """
+       +-------+
+       |       |
+       |       O
+       |      -|
+       |
+       |
+    ==============
+    """,
+    """
+       +-------+
+       |       |
+       |       O
+       |      -|-
+       |
+       |
+    ==============
+    """,
+    """
+       +-------+
+       |       |
+       |       O
+       |      -|-
+       |      |
+       |
+    ==============
+    """,
+    """
+       +-------+
+       |       |
+       |       O
+       |      -|-
+       |      | |
+       |
+    ==============
+    """
+    ]
+    return tab[nb]

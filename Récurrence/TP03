@@ -1,0 +1,135 @@
+# -*- coding: utf-8 -*-
+"""
+Faivre-Pierret 
+Noémie
+"""
+
+
+
+
+def pile_vide(pile):
+    """ Cette fonction permet de savoir si une pile est vide
+    
+
+    Parameters
+    ----------
+    pile : tuple
+        Un tuple que l'on considère comme une pile
+
+    Returns
+    -------
+    Bool
+        Revoie True si la pile est vide et False si elle n'est pas vide
+
+    """
+    return pile is None
+
+
+
+def push(pile,n):
+    """
+    cette fonction permet d'empiler un nouvel élément sur la pile
+
+    Parameters
+    ----------
+    pile : tuple
+        tuple que l'on considère comme une pile
+    n : int
+        élément que l'on rajoute
+
+    Returns
+    -------
+    tuple
+
+    """
+    return(n,pile)
+
+
+#global permet de modifier la variable qui est à l'extérieur de la fonction
+
+def pop(pile):
+    """
+    Cette fonction permet de récupérer l'élément au sommet de la pile tout
+    en le supprimant
+
+    Parameters
+    ----------
+    pile : tuple
+        tuple que l'on considère comme une pile'
+
+    Returns
+    -------
+    INt
+        sommet de la pile
+    Tuple
+        reste de la pile
+
+    """
+    return ( pile[0],pile[1] )
+
+
+
+def sommet(pile):
+    """
+    Cette fonction permet d'accéder à l'élément situé au sommet de la pile 
+    sans le supprimer de la pile 
+
+    Parameters
+    ----------
+    pile : tuple
+        tuple que l'on considère comme une pile'
+
+    Returns
+    -------
+    Int
+        sommet de la pile
+
+    """
+    return (pile[0])
+
+    
+
+def taille(pile):
+    """
+    cette fonction permet de connaitre le nombre d'éléments présents dans la pile
+
+    Parameters
+    ----------
+    pile : tuple
+       tuple que l'on considère comme une pile'
+
+    Returns
+    -------
+    Int
+        la taille de la pile
+
+    """
+    if pile_vide(pile):
+        return 0
+    else:
+        return 1+taille(pile[1])
+    
+    
+    
+def existe(n,pile):
+    if pile_vide(pile):
+        return False
+    else:
+        return n==sommet(pile) or existe(n, pop(pile)[1])
+    
+    
+    
+def concact(pile1,pile2):
+    if pile_vide(pile1):
+        return pile2
+    else:
+        push(pile2,concact(sommet(pile1),pile2))
+    
+def concact1(pile1,pile2):
+    if pile_vide(pile1):
+        return pile2
+    else:
+      tete, queue= pop(pile1)
+      pile3=concact(queue,pile2)
+      push (tete,pile3)
+      return pile3

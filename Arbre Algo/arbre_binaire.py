@@ -20,7 +20,7 @@ def taille (arbre):
         ag,n,ad=arbre
         return 1+ taille(ag)+taille(ad)
 
-def parcours_infixe(arbre):
+def parcours_infixe1(arbre):
     if arbre !=():
         ag,n,ad=arbre
         parcours_infixe(ag)
@@ -44,8 +44,61 @@ def parcours_suffixe(arbre):
         parcours_suffixe(ag)
         parcours_suffixe(ad)    
 
+def arbre_recherche(arbre,k):
+    if arbre == ():
+        return False
+    else :
+        ag,n,ad=arbre
+        if k== n:
+            return True
+        elif k < n:
+            return arbre_recherche(ag,k)
+        elif k>n:
+            return arbre_recherche(ad,k)
+            
+def arbre_insertion(arbre,y):
+    if arbre == ():
+        return ((),y,())
+    ag,n,ad=arbre
+    if y < n:
+         return (arbre_recherche(ag,y), n ,ad)
+    elif y>n:
+        return (ag, n ,(ad,y))
+    
+    
+    
+abr=arbre_insertion ((),6)
+abr=arbre_insertion ((),4)   
+abr=arbre_insertion ((),10)
+abr=arbre_insertion ((),3)  
+abr=arbre_insertion ((),6)
+abr=arbre_insertion ((),4)   
+abr=arbre_insertion ((),10)
+abr=arbre_insertion ((),3) 
 
 
+
+def parcours_infixe(arbre):
+    if arbre ==():
+        return []
+    ag,n,ad=arbre
+    liste = parcours_infixe(ag)
+    liste.append (n)
+    liste+= parcours_infixe(ad)
+    return liste
+    
+liste = parcours_infixe(arbre) 
+
+
+def creer_arbre(liste):
+    taille=len(iste)
+    if len(liste) ==0:
+        return ()
+    else:
+        lg = liste[:taille//2]
+        n= liste[taille//2]
+        ld=liste[1+taille //2 :]
+        return (creer_arbre(lg),n,creer_abre(ld))
 
 arbre = (
     (

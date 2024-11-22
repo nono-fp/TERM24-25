@@ -11,7 +11,9 @@ def bin_to_oct1(binaire):
 
 
 def str_to_bin(texte):
-    for c in "texte" :
-        nbr = ord(c)
-        binaire=bin(nbr)
-        return binaire[2:]
+    resultat= ""
+    for c in texte:
+        binaire=bin(ord(c))
+        binaire=bin_to_oct(binaire[2:]) 
+        resultat+=binaire
+    return resultat

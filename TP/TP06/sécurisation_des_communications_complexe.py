@@ -42,3 +42,11 @@ def chiff_sym_bin(message,cle):
 
 def chiff_sym (message, cle):
     return bin_to_str(chiff_sym_bin((str_to_bin (message)),(str_to_bin(cle))))
+
+
+#32 à 126
+
+def brute_force ():
+    for i in range(32,127,1):
+        cle=chr(i)
+        for j in range 

@@ -7,3 +7,5 @@ https://ens-fr.gitlab.io/nsi-pratique/
 https://www.edureka.co/blog/snake-game-with-pygame/#screen
 
 https://medium.com/edureka/snake-game-with-pygame-497f1683eeaa
+
+Kid challenge pour s'entrainer  passe ton hack

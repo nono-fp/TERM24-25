@@ -77,5 +77,22 @@ class File :
             return 0
         return 1 + self.queue.taille()
         
-pile= Pile.pile_vide()
 
+file = File.file_vide()
+file.ajout(1)
+file.ajout(2)
+file.ajout(3)
+file.ajout(4)
+print(file.taille())
+while not file.est_vide():
+    print(file.retire())
+    
+pile= Pile.pile_vide()
+pile =Pile.pile_vide()
+pile.ajout(1)
+pile.ajout(2)
+pile.ajout(3)
+pile.ajout(4)
+print(pile.taille())
+while not pile.est_vide():
+    print(pile.pop())    

@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec 20 11:44:22 2024
+
+@author: n.faivrepierret
+"""
+
+def recherche (tab,n):
+    i =0
+    j= len(tab)
+    while i != j :
+        m= (i+j)//2
+        print(m)
+        if n == tab[m] :
+            return m
+        elif n < tab[m]:
+            j = m
+        else:
+            i = m       
+    return False

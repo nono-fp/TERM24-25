@@ -8,7 +8,7 @@ https://www.edureka.co/blog/snake-game-with-pygame/#screen
 
 https://medium.com/edureka/snake-game-with-pygame-497f1683eeaa
 
-Kid challenge pour s'entrainer  passe ton hack
+https://codex.forge.apps.education.fr/en_travaux/mineur/
 
 
 ## Grand oral ##

@@ -1,0 +1,2 @@
+on calcule la distance entre points.
+Généralement k=3 ou k=5
